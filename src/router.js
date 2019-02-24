@@ -8,9 +8,31 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'TimeTable',
-      component: () => import('./pages/PageTimeTable')
+      name: 'homepage',
+      component: () => import('./pages/Homepage'),
+      children: [
+        {
+          path: '/login',
+          name: 'login',
+
+          component: () => import('./pages/PLogin')
+        },
+        {
+          path: '/timetable',
+          name: 'timetable',
+          component: () => import('./pages/PageTimeTable')
+        },
+        {
+          path: '/chooseday',
+          name: 'chooseday',
+          component: () => import('./pages/PChooseDay')
+        }
+      ]
     },
- 
+    {
+      path: '/ics',
+      name: 'IcsComponents',
+      component: () => import('./components/IcsComponents')
+    }
   ]
 })

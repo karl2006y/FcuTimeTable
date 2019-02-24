@@ -1,0 +1,68 @@
+<div class="comTimetable">
+  ComTimetable
+  <div class="container"
+       v-if="!(!loading && !classTable.Success)">
+    <div class="row">
+      <div class="col-6">
+        <p></p>
+        <p>課表開始日期：</p>
+        <input class="form-control mx-100"
+               type="date"
+               v-model="startDay">
+      </div>
+      <div class="col-6">
+        <p></p>
+        <p>課表結束日期：</p>
+        <input class=" form-control mx-100"
+               type="date"
+               v-model="endDay">
+      </div>
+    </div>
+
+    <button class="mt-2 btn btn-lg btn-primary btn-block"
+            @click="classSort"
+            type="submit">取得課表</button>
+    <small v-if="!endDay"
+           class="text-danger">
+      *請輸入課表結束日期
+    </small>
+    <IcsComponents class="mt-2"
+                   v-if='classSorted.length>0'
+                   :classTimeDetail='classSorted' />
+
+    <p></p>
+    <div class="table-responsive">
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+            <th>星期</th>
+            <th>節數</th>
+            <th>課名</th>
+            <th>教室</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-if="lngType=='中文'"
+              v-for="(item, key) in classTable.TimetableTw">
+            <td class="align-middle">{{ item.SctWeek}}</td>
+            <td class="align-middle">{{ item.SctPeriod }}</td>
+            <td class="align-middle">{{ item.SubName }}</td>
+            <td class="align-middle">{{ item.RomName }}</td>
+
+          </tr>
+          <tr v-if="lngType!='中文'"
+              v-for="(item, key) in classTable.TimetableEn">
+            <td class="align-middle">{{ item.SctWeek}}</td>
+            <td class="align-middle">{{ item.SctPeriod }}</td>
+            <td class="align-middle">{{ item.SubName }}</td>
+            <td class="align-middle">{{ item.RomName }}</td>
+
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+    </main>
+  </div>
+</div>

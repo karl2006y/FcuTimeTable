@@ -1,0 +1,68 @@
+<div class="pChooseDay">
+
+  <section class="jumbotron text-center">
+    <div class="container">
+      <lottie style=" margin-top: 0%"
+              :options="lampOptions"
+              class="mx-auto w-50" />
+      <h1 class="jumbotron-heading">選擇行事曆範圍</h1>
+      <p class="lead text-muted">從今天{{startDay}}後</p>
+      <p>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input"
+                 type="radio"
+                 name="inlineRadioOptions"
+                 id="inlineRadio1"
+                 v-model='timeRangeRadio'
+                 value="1week">
+          <label class="form-check-label"
+                 for="inlineRadio1">1個禮拜</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input checked"
+                 type="radio"
+                 name="inlineRadioOptions"
+                 v-model='timeRangeRadio'
+                 id="inlineRadio2"
+                 value="2week">
+          <label class="form-check-label"
+                 for="inlineRadio2">2個禮拜(推薦)</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input "
+                 v-model='timeRangeRadio'
+                 type="radio"
+                 name="inlineRadioOptions"
+                 id="inlineRadio3"
+                 value="3week">
+          <label class="form-check-label"
+                 for="inlineRadio3">3個禮拜</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input"
+                 type="radio"
+                 name="inlineRadioOptions"
+                 v-model='timeRangeRadio'
+                 id="inlineRadio4"
+                 value="4week">
+          <label class="form-check-label"
+                 for="inlineRadio4">4個禮拜</label>
+        </div>
+      </p>
+      <p>
+        預先提醒
+        <input class=""
+        v-model='min'
+               type="text"
+               placeholder="預設十五分鐘">
+      </p>
+      <p>
+          <button 
+             class="btn btn-primary mx-2"@click="getIcs">取得行事曆</button>
+      </p>
+      <p>
+        <IcsComponents :classTimeDetail="classSorted"v-if="classSorted.length>0"/>
+      </p>
+    </div>
+  </section>
+</div>

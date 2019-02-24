@@ -1,3 +1,156 @@
-<div class="pageTimeTable">
-  PageTimeTable
+<div class="pageTimeTable container">
+  <h5>1.確認課表 共{{ classTable.length }}堂課</h5>
+  <div class="form-check form-check-inline">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      v-model="weeken"
+      id="inlineCheckbox1"
+    />
+    <label class="form-check-label" for="inlineCheckbox1"
+      >加入禮拜六日的課表</label
+    >
+  </div>
+
+  <div v-if="loading">
+    loading
+  </div>
+  <table v-if="!loading" class="table table-sm mt-2 table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">一</th>
+        <th scope="col">二</th>
+        <th scope="col">三</th>
+        <th scope="col">四</th>
+        <th scope="col">五</th>
+        <th v-if="weeken" scope="col">六</th>
+        <th v-if="weeken" scope="col">日</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="y in 14">
+        <td>
+          <h6>第{{ y }}節</h6>
+          <h6>
+            {{ timeRange[y].split('~')[0] }}
+          </h6>
+          <h6>
+            {{ timeRange[y].split('~')[1] }}
+          </h6>
+        </td>
+        <td
+          v-for="x in daysOneWeek"
+          data-toggle="modal"
+          data-target="#exampleModal"
+          @click="viewToEditHandler(x, y)"
+        >
+          <div v-if="classView[x][y][0]">
+            <p>
+              <img src="../../assets/baseline-edit-24px.svg" alt="[點擊編輯]" />
+            </p>
+            <h6>
+              {{
+                classView[x][y][0].SubName == undefined
+                  ? ''
+                  : classView[x][y][0].SubName
+              }}
+            </h6>
+            <h6>
+              {{
+                classView[x][y][0].RomName == undefined
+                  ? ''
+                  : '[' + classView[x][y][0].RomName + ']'
+              }}
+            </h6>
+            <h6>
+              {{
+                classView[x][y][0].TeacherName == undefined
+                  ? ''
+                  : '(' + classView[x][y][0].TeacherName + ')'
+              }}
+            </h6>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button class="btn btn-lg btn-primary btn-block" @click="classSort_final">
+    下一步
+  </button>
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered " role="document">
+      <lottie style=" margin-top: 0%; background-color: #fff;"
+              v-if="checkClassPic"
+              :options="checkOptions"
+              class="mx-auto w-50 rounded-circle" />
+      <div class="modal-content" v-if="!checkClassPic">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            編輯課表
+          </h5>
+
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h5>星期：{{ edit.x }}</h5>
+          <h5>節數：{{ edit.y }}</h5>
+          <h5>時間：{{ timeRange[edit.y] }}</h5>
+          課程名稱：
+          <input
+            v-model="edit.classData.SubName"
+            type="text"
+            class="form-control"
+          />
+          上課教室：
+          <input
+            v-model="edit.classData.RomName"
+            type="text"
+            class="form-control"
+          />
+          授課教師：
+          <input
+            v-model="edit.classData.TeacherName"
+            type="text"
+            class="form-control"
+          />
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button "
+            @click="creatNewClassHandler(edit.x,edit.y) "
+            class="btn btn-danger"
+            data-dismiss="modal"
+          >
+            刪除
+          </button>
+          <button
+            type="button "
+            @click="checkClassPic = true;loading = true;editSaveHandler;hideModal();loading = false ;"
+            class="btn btn-primary"
+            data-dismiss="modal"
+          >
+            確認編輯
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

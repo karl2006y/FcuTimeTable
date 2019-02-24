@@ -1,6 +1,8 @@
-import Vue from 'vue'
+import Vue from 'vue' 
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+
+Vue.use(VueAxios, axios)
 // import 'bootstrap/dist/js/bootstrap'
 import 'bootstrap';
 
@@ -12,6 +14,8 @@ import 'bootstrap/js/dist/tooltip'
 import 'bootstrap/scss/bootstrap.scss'
 
 // jquery
+import $ from 'jquery';
+
 global.$ = $
 
 //lottie
@@ -19,13 +23,15 @@ import lottie from 'vue-lottie';
 Vue.component('lottie', lottie)
 
 
+import LoadingCardComponents from '@/components/LoadingCardComponents';
+Vue.component('LoadingCardComponents', LoadingCardComponents)
 
 
 
 import App from './App.vue'
 import router from './router'
 
-Vue.use(VueAxios, axios)
+
 Vue.config.productionTip = false
 
 new Vue({

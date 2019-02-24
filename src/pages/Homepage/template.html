@@ -1,0 +1,22 @@
+<div class="homepage">
+  <router-view
+    v-if="$route.name == 'login'"
+    v-on:loading-change="loading = $event"
+    v-on:get-classTable="classTable = $event"
+  ></router-view>
+
+  <router-view
+    v-on:loading-change="loading = $event"
+    v-if="$route.name == 'timetable'"
+    v-on:get-classWeek="classWeek =  $event"
+    :classTable="classTable"
+  ></router-view>
+
+  <router-view
+    v-on:loading-change="loading = $event"
+    v-if="$route.name == 'chooseday'"
+    :classWeekList="classWeek"
+  ></router-view>
+
+  <br />
+</div>

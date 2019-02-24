@@ -1,0 +1,65 @@
+<div class="pLogin">
+  <LoadingCardComponents v-if="loading"></LoadingCardComponents>
+  <div class="form-signin" v-if="!loading">
+    <h1 class="h3 mb-3 font-weight-normal">逢甲課表轉行事曆</h1>
+    <label class="mt-2">NID帳號login</label>
+    <input
+      v-model="username"
+      style="text-transform:uppercase;"
+      class="form-control"
+      placeholder="NID帳號"
+      required
+      autofocus
+    />
+    <label class="mt-2">NID密碼</label>
+    <input
+      type="password"
+      v-model="password"
+      class="form-control"
+      placeholder="NID密碼"
+      required
+    />
+
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="radio"
+        v-model="lngType"
+        name="lng"
+        id="lng1"
+        value="tw"
+        checked
+      />
+      <label class="form-check-label" for="lng1">
+        中文課表
+      </label>
+    </div>
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="radio"
+        v-model="lngType"
+        name="lng"
+        id="lng2"
+        value="en"
+      />
+      <label class="form-check-label" for="lng2">
+        英文課表
+      </label>
+    </div>
+
+    <button
+      class="btn btn-lg btn-primary btn-block"
+      @click="getClassTableHandler"
+    >
+      登入
+    </button>
+
+    <small v-if="!classTable.Success && !first" class="text-danger">
+      *登入錯誤
+    </small>
+
+    <p class="mt-5 mb-3 text-muted">&copy; 2019-2020</p>
+  </div>
+  {{ teachersName }}
+</div>
